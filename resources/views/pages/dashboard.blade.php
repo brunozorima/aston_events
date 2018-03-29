@@ -1,5 +1,22 @@
-@extends('layouts.master')
+@extends('layouts.app')
 @section('content')
-    <h1>{{$title}}</h1>
-    <h1>This is the dashboard Page for the Existing USERS</h1>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-8 col-md-offset-2">
+                <div class="panel panel-default">
+                    <div class="panel-heading"><h1>{{$title}}</h1></div>
+                    <div class="panel-body">
+                        @if (session('status'))
+                            <div class="alert alert-success">
+                                {{ session('status') }}
+                            </div>
+                        @endif
+                        You are logged in!
+                            <a href="/event/create" ><button id="btn-signup" type="button" class="btn btn-info btn-block"><i class="icon-hand-right"></i>Create an event NOW</button></a>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 @endsection

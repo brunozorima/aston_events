@@ -20,19 +20,4 @@ class PagesController extends Controller
         $title = "Events";
         return view('pages.events')->with('title',$title);
     }
-
-    public function dashboard() {
-        $title = "Dashboard";
-        return view('pages.dashboard')->with('title',$title);
-    }
-
-    public function login() {
-        $title = "Sign In";
-        return view('pages.login')->with('title',$title);
-    }
-
-    public function register() {
-        $title = "Sign Up";
-        return view('pages.register')->with('title',$title);
-    }
 }

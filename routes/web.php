@@ -11,17 +11,23 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
-
-//Route::get('/about', function () {
-//    return view('pages.about');
+//Route::get('/', function () {
+//    return view('welcome');
 //});
 
+Route::get('/','PagesController@index');
 Route::get('index','PagesController@index');
 Route::get('about','PagesController@about');
 Route::get('events','PagesController@events');
-Route::get('dashboard','PagesController@dashboard');
-Route::get('login','PagesController@login');
-Route::get('register','PagesController@register');
+
+
+//use resource to make routing a lot easier
+Route::resource('event','EventsController');
+
+
+
+Auth::routes();
+
+
+
+Route::get('dashboard', 'DashboardController@index');

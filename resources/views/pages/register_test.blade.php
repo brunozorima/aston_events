@@ -60,7 +60,7 @@
                 </div>
 
 
-                {{--<a id="btn-fblogin" href="/login" class="btn btn-primary">Already Have an Account ?</a>--}}
+                <a id="btn-fblogin" href="/login" class="btn btn-primary">Already Have an Account ?</a>
 
                 <div class="form-group">
                     <!-- Button -->
