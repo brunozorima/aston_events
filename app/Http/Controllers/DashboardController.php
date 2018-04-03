@@ -2,14 +2,15 @@
 
 namespace App\Http\Controllers;
 
+use App\Event;
 use Illuminate\Http\Request;
+use App\User;
 
 class DashboardController extends Controller
 {
     /**
      * Create a new controller instance.
      *
-     * @return void
      */
     public function __construct()
     {
@@ -23,7 +24,10 @@ class DashboardController extends Controller
      */
     public function index()
     {
-        $title = "Dashboard";
-        return view('pages.dashboard')->with('title',$title);
+
+//        $user_id = auth()->user()->id;
+//        $user = User::find($user_id);
+//        return view('events.dashboard')->with('events',$user->event);
+
     }
 }

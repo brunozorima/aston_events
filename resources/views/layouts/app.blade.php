@@ -7,16 +7,18 @@
 
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
+    <!-- Styles -->
+    {{--<link rel="stylesheet" href="{{ asset('css/webpageStyle.css') }}">--}}
+    <!-- Styles -->
+    <link rel="stylesheet" href="{{ asset('css/app.css') }}">
 
     <title>{{ config('app.name', 'Aston') }}</title>
-
-    <!-- Styles -->
-    <link href="{{ asset('css/app.css') }}" rel="stylesheet">
 </head>
 <body>
     <div id="app">
         @include('inc.navbar')
         <div class="container">
+            @include('inc.messages')
             @yield('content')
         </div>
     </div>

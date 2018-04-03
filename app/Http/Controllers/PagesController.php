@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Event;
 
 class PagesController extends Controller
 {
@@ -17,7 +18,13 @@ class PagesController extends Controller
     }
 
     public function events() {
-        $title = "Events";
-        return view('pages.events')->with('title',$title);
+//        $event = Event::all();
+        $event = Event::paginate(5);
+        return view('pages.events')->with('events', $event);
+    }
+
+    public function show($id) {
+        $event = Event::find($id);
+        return view('pages.show')->with('event',$event);
     }
 }

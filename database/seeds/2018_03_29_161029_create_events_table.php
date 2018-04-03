@@ -22,10 +22,10 @@ class CreateEventsTable extends Migration
             $table->date('date');
             $table->time('start_at');
             $table->time('end_at');
-            $table->foreign('organiser')
-                ->references('name')
-                ->on('users')
-                ->onDelete('CASCADE');
+//            $table->foreign('organiser')
+//                ->references('name')
+//                ->on('users')
+//                ->onDelete('CASCADE');
             $table->string('contact');
             $table->string('location');
             $table->timestamps();

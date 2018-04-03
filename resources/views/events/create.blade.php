@@ -7,7 +7,7 @@
             </div>
 
             <div class="panel-body" >
-                <form id="eventform" class="form-horizontal" method="POST" action="{{url('event')}}" role="form">
+                <form id="eventform" class="form-horizontal" method="POST" action="{{url('event')}}" enctype="multipart/form-data" role="form">
                     {{csrf_field()}}
                     <div class="form-group">
                         <label for="event_name" class="col-md-3 control-label">Event Name</label>
@@ -69,6 +69,12 @@
                         <label for="location" class="col-md-3 control-label">Event location</label>
                         <div class="col-md-9">
                             <input type="text" class="form-control" name="location" placeholder="Location">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="location" class="col-md-3 control-label">Photos</label>
+                        <div class="col-md-9">
+                            <input type="file" class="form-control" name="cover_image" >
                         </div>
                     </div>
                     <div class="form-group">

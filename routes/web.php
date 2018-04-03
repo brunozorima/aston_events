@@ -19,15 +19,18 @@ Route::get('/','PagesController@index');
 Route::get('index','PagesController@index');
 Route::get('about','PagesController@about');
 Route::get('events','PagesController@events');
+Route::get('events/{id}','PagesController@show');
 
 
 //use resource to make routing a lot easier
 Route::resource('event','EventsController');
 
+//Route::post('tests','EventsController@index');
+
 
 
 Auth::routes();
 
+//Route::post('store', 'EventsController@store');
 
-
-Route::get('dashboard', 'DashboardController@index');
+//Route::get('dashboard', 'DashboardController@index');
