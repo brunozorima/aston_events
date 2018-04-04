@@ -7,10 +7,12 @@
 
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
-    <!-- Styles -->
-    {{--<link rel="stylesheet" href="{{ asset('css/webpageStyle.css') }}">--}}
+
     <!-- Styles -->
     <link rel="stylesheet" href="{{ asset('css/app.css') }}">
+
+    <!-- Scripts -->
+    <script src="{{ asset('js/app.js') }}"></script>
 
     <title>{{ config('app.name', 'Aston') }}</title>
 </head>
@@ -23,7 +25,6 @@
         </div>
     </div>
 
-    <!-- Scripts -->
-    <script src="{{ asset('js/app.js') }}"></script>
+
 </body>
 </html>

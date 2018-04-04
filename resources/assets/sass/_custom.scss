@@ -1,15 +1,279 @@
-//#body {
-//  background-color: #ff2c2f !important;
+body {
+  background-color: #dbd585 !important;
+}
+//Main card on the event page for all events
+.card {
+  font-size: 1em !important;
+  overflow: hidden !important;
+  padding: 0 !important;
+  border: none !important;
+  border-radius: .28571429rem !important;
+  box-shadow: 2px 3px 3px 0 rgba(13, 13, 13, 0.96), 0 0 0 1px #070707 !important;
+  display: block;
+}
+
+.card-block {
+  font-size: 1em !important;
+  position: relative !important;
+  margin: 0 !important;
+  padding: 1em !important;
+  border: none !important;
+  border-top: 1px solid rgba(34, 36, 38, .1)!important;
+  box-shadow: none !important;
+}
+
+.card-img-top {
+  display: block !important;
+  width: 100% !important;
+  height: 100% !important;
+}
+.card-title {
+  font-size: 1.28571429em !important;
+  font-weight: 700 !important;
+  line-height: 1.2857em !important;
+  color: black;
+}
+.card-text {
+  clear: both;
+  margin-top: .5em;
+  color: rgba(0, 0, 0, .68);
+}
+.card-footer {
+  font-size: 1em;
+  position: static;
+  top: 0;
+  left: 0;
+  max-width: 100%;
+  padding: .75em 1em;
+  color: rgba(0, 0, 0, .4);
+  border-top: 1px solid rgba(0, 0, 0, .05) !important;
+  background: #fff;
+}
+//.meta {
+//  font-size: 1em;
+//  color: black;
+//}
+//
+//.meta a {
+//  text-decoration: none;
+//  color: rgba(0, 0, 0, .4);
+//}
+//
+//.meta a:hover {
+//  color: rgba(0, 0, 0, .87);
 //}
 
-/* images for the benefits */
-//.img {
-//  max-width: 200px; !important;
-//  margin: 15px 0 0 0; !important;
-//
-///* images for the benefits */
-//.img:hover {
-//  opacity: 0.4; !important;
-//  max-width: 200px; !important;
-//  margin-top: 15px; !important;
-//}
+.card-title {
+  display: inline-block;
+  margin-left: 4px;
+  vertical-align: top;
+}
+h4 {
+  font-size: 1.28571429em;
+  font-weight: 700;
+  line-height: 1.2857em;
+  margin: 0;
+}
+
+//Main card on the show page for individual events
+//Main card on the show page for individual events
+.container_info{
+  max-width: 1200px;
+  margin-left: auto;
+  margin-right: auto;
+  padding-top: 2rem;
+  padding-left: 1rem;
+  padding-right: 1rem;
+}
+
+.card_size-m{
+  width: 32%;
+}
+@media screen and (min-width: 481px) and (max-width: 800px){
+
+  .card_size-m, .card_main{
+    width: 49%;
+  }
+}
+
+@media screen and (max-width: 480px){
+
+  .card_size-m, .card_main{
+    width: 100%;
+  }
+}
+
+.cards{
+  //background-color: #b7bcbf;
+  display: flex !important;
+  flex-wrap: wrap !important;
+  justify-content: space-between !important;
+  font-family: "Roboto", sans-serif !important;
+}
+.card{
+  box-shadow: 0 2px 2px 0 rgba(0,0,0,0.14),0 1px 5px 0 rgba(0,0,0,0.12),0 3px 1px -2px rgba(0,0,0,0.2);
+  margin-bottom: 2rem;
+
+  display: flex;
+  flex-direction: column;
+}
+.card_main{
+  width: 66%;
+}
+
+
+
+@media screen and (min-width: 801px){
+
+  .card_main{
+
+    .card__title{
+      font-size: 180%;
+    }
+  }
+}
+
+.card__header{
+  position: relative;
+  line-height: 0;
+}
+
+*::-ms-backdrop,.card__header{
+  display: flex;
+}
+
+.card__preview{
+  max-width: 100%;
+  height: auto;
+}
+
+*::-ms-backdrop,.card__preview{
+  flex: 0 0 auto;
+}
+
+.card__main-action{
+
+  font-size: 100%;
+  text-decoration: none;
+  text-indent: -9999px;
+  cursor: pointer;
+
+  border: none;
+  border-radius: 50%;
+  padding: 0;
+  box-shadow: 0 2px 2px 0 rgba(0,0,0,0.14),0 1px 5px 0 rgba(0,0,0,0.12),0 3px 1px -2px rgba(0,0,0,0.2);
+
+  position: absolute;
+  right: 5%;
+  bottom: 0;
+  transform: translateY(50%);
+
+  width: 4em;
+  height: 4em;
+
+  &:before{
+
+    content: "";
+    display: block;
+
+    width: 60%;
+    height: 60%;
+
+    box-sizing: border-box;
+
+    background-position: 50% 50%;
+    background-repeat: no-repeat;
+    background-size: contain;
+
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%)
+  }
+
+  &:focus{
+    outline: none;
+  }
+}
+
+.card__body {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  flex-grow: 2;
+}
+
+.card__title{
+
+  font-size: 140%;
+  font-weight: 400;
+  line-height: 1.5;
+
+  margin-top: 0;
+  margin-bottom: .8em;
+}
+
+.card__showmore{
+  text-decoration: none;
+}
+
+.card__content{
+  padding: 2.5em 4% 1.5em;
+  flex-grow: 2;
+}
+
+.card__footer{
+
+  padding: 1.5em 4%;
+  border-top-width: 1px;
+  border-top-style: solid;
+  font-size: 90%;
+
+  display: flex;
+  justify-content: space-between;
+}
+
+.card__meta-item{
+  display: inline-block;
+  vertical-align: middle;
+  margin-left: .8em;
+}
+
+.card__meta-icon{
+
+  display: inline-block;
+  vertical-align: middle;
+  text-align: right;
+
+  width: 1.5em;
+  height: 1.5em;
+  margin-right: .2em;
+
+  background-position: 50% 50%;
+  background-repeat: no-repeat;
+  background-size: contain;
+}
+
+.card__meta-comments{
+  background-image: url("https://stas-melnikov.ru/cssgrid/comment.svg");
+}
+
+.card__meta-likes{
+  background-image: url("https://stas-melnikov.ru/cssgrid/favorite.svg");
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
