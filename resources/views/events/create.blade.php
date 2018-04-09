@@ -16,10 +16,17 @@
                         </div>
                     </div>
 
-                    <div class="form-group">
+                    <div class="form-group ">
                         <label for="category" class="col-md-3 control-label">Category</label>
                         <div class="col-md-9">
-                            <input type="text" class="form-control" name="category" placeholder="Category">
+                            <select name="category" class="form-control" id="category">
+                                <option value="" selected disabled hidden>Choose one</option>
+                                <option value="Sport">Sport</option>
+                                <option value="Culture">Culture</option>
+                                <option value="Music">Music</option>
+                                <option value="Other">Other</option>
+                            </select>
+                            {{--<input type="text" class="form-control" name="category" placeholder="Category">--}}
                         </div>
                     </div>
 

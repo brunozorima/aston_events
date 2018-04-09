@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Event;
 use App\User;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Input;
 class eventsController extends Controller
 {
 
@@ -82,7 +83,6 @@ class eventsController extends Controller
 
         $events = New Event([
             'event_name'    => $request->get('event_name'),
-            'category'    => $request->get('category'),
             'description'    => $request->get('description'),
             'organiser'    => $request->get('organiser'),
             'date'    => $request->get('date'),
@@ -91,6 +91,7 @@ class eventsController extends Controller
             'contact'    => $request->get('contact'),
             'location'    => $request->get('location'),
         ]);
+        $events->category = Input::get('category');
         $events->cover_image = $fileNameToStore;
         $events->user_id = auth()->user()->id;
         $events->save();

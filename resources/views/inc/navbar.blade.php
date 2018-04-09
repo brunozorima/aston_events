@@ -22,19 +22,56 @@
                 &nbsp;
             </ul>
             <ul class="nav navbar-nav">
-                <li><a href="{{ url('events') }}">Events</a></li>
-                <li><a href="{{ url('about') }}">About Us</a></li>
+                <li><a href="{{ url('events') }}">EVENTS</a></li>
+                <li class="float-left" ><a href="{{ url('/event/create') }}">CREATE EVENT</a></li>
+                <li class="dropdown">
+                    <a class="dropdown-toggle" data-toggle="dropdown" href="#">CATEGORY
+                        <span class="caret"></span></a>
+                    <ul class="dropdown-menu">
+                        <li><a href="/event/sport">SPORT</a></li>
+                        <li><a href="/event/culture">CULTURE</a></li>
+                        <li><a href="/event/music">MUSIC</a></li>
+                        <li><a href="/event/other">OTHER</a></li>
+                    </ul>
+                </li>
+                {{--<li><a href="{{ url('about') }}">ABOUT US</a></li>--}}
+                <li>
+                    <a>
+                        <div class="search-container">
+                            <form action="/event/search">
+                                <input type="text" placeholder="Search.." name="search">
+                                <button type="submit"><i class="fa fa-search"></i></button>
+                            </form>
+                        </div>
+                    </a>
+                </li>
+
+
+                <!-- FILTER BUTTON BASED ON SELECTED DATE-->
+                <li class="dropdown">
+                    {{--<a class="dropdown-toggle" data-toggle="dropdown" href="#">Category:--}}
+                        {{--<span class="caret"></span></a>--}}
+                    <ul class="dropdown-menu">Clikc
+                        <li>@include('pages.dropdown')</li>
+                    </ul>
+
+
+                </li>
+
             </ul>
+
+
+
 
             <!-- Right Side Of Navbar -->
             <ul class="nav navbar-nav navbar-right">
                 <!-- Authentication Links -->
                 @if (Auth::guest())
-                    <li><a href="{{ route('login') }}" ><span class="glyphicon glyphicon-user"></span> Login</a></li>
-                    <li><a href="{{ route('register') }}"><span class="glyphicon glyphicon-log-in"></span> Register</a></li>
+                    <li><a href="{{ route('login') }}" ><span class="glyphicon glyphicon-user"></span> LOGIN</a></li>
+                    <li><a href="{{ route('register') }}"><span class="glyphicon glyphicon-log-in"></span> REGISTER</a></li>
                 @else
-                    <li><a href="{{ url('/event') }}">Dashboard</a></li>
-                    <li><a href="{{ url('/event/create') }}">Add event</a></li>
+                    <li><a href="{{ url('/event') }}">DASHBOARD</a></li>
+                    {{--<li><a href="{{ url('/event/create') }}">Add event</a></li>--}}
                     <li class="dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
                             {{ Auth::user()->name }} <span class="caret"></span>
@@ -45,7 +82,7 @@
                                 <a href="{{ route('logout') }}"
                                    onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">
-                                    Logout
+                                    LOGOUT
                                 </a>
 
                                 <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">

@@ -1,8 +1,8 @@
 @extends('layouts.app')
 @section('content')
-    <h1>All Available Events</h1>
         <div class="row">
             @if(count($events) > 0)
+                <h1 align="center">{{$title}} Events</h1>
                 @foreach($events as $event)
                     <div class="col-md-4">
                         <div class="card">
@@ -22,7 +22,7 @@
                 @endforeach
                 {{$events->links()}}
             @else
-                <p>No Events Found</p>
+                <p>NO EVENTS FOUND...</p>
             @endif
         </div>
 @endsection
@@ -32,3 +32,6 @@
 {{--<div class="card-text">--}}
 {{--{{$event->description}}--}}
 {{--</div>--}}
+{{--@if(isNonEmptyString($title))--}}
+    {{--<h1>Fuck</h1>--}}
+{{--@endif--}}

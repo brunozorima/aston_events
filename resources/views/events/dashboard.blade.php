@@ -24,9 +24,7 @@
                                     <input type="hidden" name="_method" value="DELETE"/>
                                     <button type="submit" class="btn btn-danger">Remove Event</button>
                                 </form>
-
                             @endforeach
-                            {{--{{$events->links()}}--}}
                         @else
                             <p>No Events Found</p>
                         @endif

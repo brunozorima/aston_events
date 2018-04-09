@@ -20,7 +20,15 @@ Route::get('index','PagesController@index');
 Route::get('about','PagesController@about');
 Route::get('events','PagesController@events');
 Route::get('events/{id}','PagesController@show');
+Route::get('event/sport','PagesController@sport_events');
+Route::get('event/culture','PagesController@culture_events');
+Route::get('event/music','PagesController@music_events');
+Route::get('event/other','PagesController@other_events');
+Route::get('event/search/','PagesController@search');
 
+
+//test
+Route::get('dropdown','PagesController@tests');
 
 //use resource to make routing a lot easier
 Route::resource('event','EventsController');
