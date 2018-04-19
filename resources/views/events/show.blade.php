@@ -4,7 +4,11 @@
         <div class="cards">
             <article class="card card_main">
                 <header class="card__header">
-                    <img class="card__preview" src="/storage/cover_images/{{$events->cover_image}}" alt="Preview img">
+                    @if(count($images) > 0)
+                        @foreach($images as $image)
+                            <img class="card__preview mySlides w3-animate-fading" src="/storage/cover_images/{{$image->image_name}}">
+                        @endforeach
+                    @endif
                 </header>
                 <div class="card__body">
                     <div class="card__content">
@@ -48,6 +52,7 @@
                     {{csrf_field()}}
                     @if(!Auth::guest())
                         @if(Auth::user()->id == $events->user_id)
+                            <a href="/event" class="btn btn-primary">RETURN</a>
                             <a href="/event/{{$events->id}}/edit" class="btn btn-default">Edit Event</a>
                             <form method="POST" action="{{action('EventsController@destroy', $events->id)}}" class="pull-right">
                                 {{csrf_field()}}
@@ -60,4 +65,22 @@
             </article>
         </div>
     </div>
+
+    <script>
+        var myIndex = 0;
+        carousel();
+
+        function carousel() {
+            var i;
+            var x = document.getElementsByClassName("mySlides");
+            for (i = 0; i < x.length; i++) {
+                x[i].style.display = "none";
+            }
+            myIndex++;
+            if (myIndex > x.length) {myIndex = 1}
+            x[myIndex-1].style.display = "block";
+            setTimeout(carousel, 10000);
+        }
+    </script>
+
 @endsection

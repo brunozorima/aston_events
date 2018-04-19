@@ -25,20 +25,21 @@ Route::get('event/culture','PagesController@culture_events');
 Route::get('event/music','PagesController@music_events');
 Route::get('event/other','PagesController@other_events');
 Route::get('event/search/','PagesController@search');
+Route::get('event/newest','PagesController@newest_events');
+Route::get('event/oldest','PagesController@oldest_events');
+Route::get('event/sort/name/asc','PagesController@sort_by_name_asc');
+Route::get('event/sort/name/desc','PagesController@sort_by_name_desc');
+
+Route::get('contact','PagesController@contact_organiser');
+Route::get('contact/{id}','PagesController@contact_organiser');
+
+Route::get('send','PagesController@send');
 
 
-//test
-Route::get('dropdown','PagesController@tests');
+Route::get('closeAccount/{id}','DashboardController@destroy');
+
 
 //use resource to make routing a lot easier
 Route::resource('event','EventsController');
-
-//Route::post('tests','EventsController@index');
-
-
-
+//auth routes
 Auth::routes();
-
-//Route::post('store', 'EventsController@store');
-
-//Route::get('dashboard', 'DashboardController@index');

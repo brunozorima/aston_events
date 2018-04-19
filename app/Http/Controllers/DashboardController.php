@@ -30,4 +30,23 @@ class DashboardController extends Controller
 //        return view('events.dashboard')->with('events',$user->event);
 
     }
+
+    public function destroy($id)
+    {
+        //destroy a user
+
+        //find the user in a database and assign it to user_id
+        $user_id = auth()->user()->id;
+
+        $user = User::find($user_id);
+        $event = Event::find($user_id);
+
+        //checks for the correct user
+        if($user_id!== Auth::user()->id ) {
+            return redirect('/events')->with('error','Unauthorized Page');
+        }
+
+    }
+
+
 }

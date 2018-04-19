@@ -13,7 +13,6 @@
                         @endif
                         You are logged in!
                             <a href="/event/create" ><button id="btn-signup" type="button" class="btn btn-info btn-block"><i class="icon-hand-right"></i>Create an event NOW</button></a>
-
                     </div>
                 </div>
             </div>

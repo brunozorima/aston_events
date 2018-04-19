@@ -16,10 +16,16 @@
                         </div>
                     </div>
 
-                    <div class="form-group">
+                    <div class="form-group ">
                         <label for="category" class="col-md-3 control-label">Category</label>
                         <div class="col-md-9">
-                            <input type="text" class="form-control" name="category" value="{{$events->category}}" placeholder="Category">
+                            <select name="category" class="form-control" id="category">
+                                <option value="{{$events->category}}" selected>{{$events->category}}</option>
+                                <option value="Sport">Sport</option>
+                                <option value="Culture">Culture</option>
+                                <option value="Music">Music</option>
+                                <option value="Other">Other</option>
+                            </select>
                         </div>
                     </div>
 
@@ -67,7 +73,7 @@
                     <div class="form-group">
                         <label for="location" class="col-md-3 control-label">Photos</label>
                         <div class="col-md-9">
-                            <input type="file" class="form-control" name="cover_image" >
+                            <input type="file" class="form-control" name="cover_image[]" multiple="true" accept="image/*" >
                         </div>
                     </div>
 
@@ -75,7 +81,7 @@
                     <div class="form-group">
                         <!-- Button -->
                         <div class="col-md-offset-3 col-md-9">
-                            <button id="btn-signup" type="submit" class="btn btn-info btn-block"><i class="icon-hand-right"></i>Confirm changes</button>
+                            <button id="btn-signup" type="submit" class="btn btn-info btn-block"><i class="icon-hand-right"></i>Update Changes</button>
                         </div>
                     </div>
                 </form>

@@ -13,6 +13,11 @@ class Event extends Model
     public function user() {
         return $this->belongsTo('App\User');
     }
+
+    public function uploads() {
+        //a user can have manny events but one event only have one user
+        return $this->hasMany('App\Uploads');
+    }
 }
 
 

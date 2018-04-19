@@ -8351,7 +8351,20 @@ button.close {
 }
 
 body {
-  background-color: #f5ffef !important;
+  background-color: #f7fff3 !important;
+}
+
+.fa {
+  font-size: 20px !important;
+  cursor: pointer !important;
+  -webkit-user-select: none !important;
+     -moz-user-select: none !important;
+      -ms-user-select: none !important;
+          user-select: none !important;
+}
+
+.fa:hover {
+  color: #0000a4 !important;
 }
 
 .card {
@@ -8379,7 +8392,7 @@ body {
 .card-img-top {
   display: block !important;
   width: 100% !important;
-  height: 100% !important;
+  height: 200px !important;
 }
 
 .card-title {
@@ -8494,8 +8507,8 @@ h4 {
 }
 
 .card__preview {
-  max-width: 100%;
-  height: auto;
+  width: 100%;
+  height: 400px;
 }
 
 *::-ms-backdrop,

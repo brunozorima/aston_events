@@ -26,7 +26,6 @@
                                 <option value="Music">Music</option>
                                 <option value="Other">Other</option>
                             </select>
-                            {{--<input type="text" class="form-control" name="category" placeholder="Category">--}}
                         </div>
                     </div>
 
@@ -47,21 +46,21 @@
                     <div class="form-group">
                         <label for="date" class="col-md-3 control-label">Event Date</label>
                         <div class="col-md-9">
-                            <input type="date" class="form-control" name="date">
+                            <input type="date" class="form-control" id="txtDate" name="date" value="today">
                         </div>
                     </div>
 
                     <div class="form-group">
                         <label for="start_at" class="col-md-3 control-label">Event Starts:</label>
                         <div class="col-md-9">
-                            <input type="time" class="form-control" name="start_at">
+                            <input type="time" class="form-control" name="start_at" value="12:00">
                         </div>
                     </div>
 
                     <div class="form-group">
                         <label for="start_at" class="col-md-3 control-label">Event Ends:</label>
                         <div class="col-md-9">
-                            <input type="time" class="form-control" name="end_at">
+                            <input type="time" class="form-control" name="end_at" value="16:30">
                         </div>
                     </div>
 
@@ -79,9 +78,9 @@
                         </div>
                     </div>
                     <div class="form-group">
-                        <label for="location" class="col-md-3 control-label">Photos</label>
+                        <label for="images" class="col-md-3 control-label">Select Photos: </label>
                         <div class="col-md-9">
-                            <input type="file" class="form-control" name="cover_image" >
+                            <input type="file" class="form-control" id="cover_image" name="cover_image[]" multiple="true" accept="image/x-png,image/gif,image/jpeg, image/jpg">
                         </div>
                     </div>
                     <div class="form-group">

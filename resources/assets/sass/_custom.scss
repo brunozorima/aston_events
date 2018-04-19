@@ -1,6 +1,18 @@
 body {
-  background-color: #f5ffef !important;
+  background-color: #f7fff3 !important;
 }
+//thumbs up and down for the likeness
+.fa {
+  font-size: 20px !important;
+  cursor: pointer !important;
+  user-select: none !important;
+  //padding: 0px 5px px 0px;
+}
+.fa:hover {
+  color: #0000a4 !important;
+}
+
+
 //Main card on the event page for all events
 .card {
   font-size: 1em !important;
@@ -25,7 +37,7 @@ body {
 .card-img-top {
   display: block !important;
   width: 100% !important;
-  height: 100% !important;
+  height: 200px !important;
 }
 .card-title {
   font-size: 1.28571429em !important;
@@ -143,8 +155,8 @@ h4 {
 }
 
 .card__preview{
-  max-width: 100%;
-  height: auto;
+  width: 100%;
+  height: 400px;
 }
 
 *::-ms-backdrop,.card__preview{
@@ -301,9 +313,6 @@ h4 {
     border: 1px solid #070707;
   }
 }
-
-
-
 
 
 

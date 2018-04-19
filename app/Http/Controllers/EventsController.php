@@ -2,11 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use App\Uploads;
 use Illuminate\Http\Request;
 use App\Event;
 use App\User;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Input;
+//use Image;
+use Intervention\Image\ImageManagerStatic as Image;
 class eventsController extends Controller
 {
 
@@ -26,11 +29,9 @@ class eventsController extends Controller
      */
     public function index()
     {
-//        $event = Event::all();
-////        $event = Event::paginate(1);
-//        return view('events.dashboard')->with('events', $event);
-
+        //find the user in a database and assign it to user_id
         $user_id = auth()->user()->id;
+
         $user = User::find($user_id);
         return view('events.dashboard')->with('events',$user->event);
     }
@@ -53,7 +54,8 @@ class eventsController extends Controller
      */
     public function store(Request $request)
     {
-        $this->validate($request,['event_name' => 'required',
+        //validates the entered data before doing any manipulation with the data
+        $this->validate($request, ['event_name' => 'required',
                 'category' => 'required',
                 'description' => 'required',
                 'date' => 'required',
@@ -62,41 +64,115 @@ class eventsController extends Controller
                 'end_at' => 'required',
                 'contact' => 'required',
                 'location' => 'required',
-                'cover_image' => 'image|nullable|max:1999']
+                'cover_image[]' => 'sometime|image[]'
+                ]
         );
-
-        // Handle File Upload
-        if($request->hasFile('cover_image')){
-            // Get filename with the extension
-            $filenameWithExt = $request->file('cover_image')->getClientOriginalName();
-            // Get just filename
-            $filename = pathinfo($filenameWithExt, PATHINFO_FILENAME);
-            // Get just ext
-            $extension = $request->file('cover_image')->getClientOriginalExtension();
-            // Filename to store
-            $fileNameToStore= $filename.'_'.time().'.'.$extension;
-            // Upload Image
-            $path = $request->file('cover_image')->storeAs('public/cover_images', $fileNameToStore);
-        } else {
-            $fileNameToStore = 'noimage.jpg';
-        }
-
         $events = New Event([
-            'event_name'    => $request->get('event_name'),
-            'description'    => $request->get('description'),
-            'organiser'    => $request->get('organiser'),
-            'date'    => $request->get('date'),
-            'start_at'    => $request->get('start_at'),
-            'end_at'    => $request->get('end_at'),
-            'contact'    => $request->get('contact'),
-            'location'    => $request->get('location'),
+            'event_name' => $request->get('event_name'),
+            'description' => $request->get('description'),
+            'organiser' => $request->get('organiser'),
+            'date' => $request->get('date'),
+            'start_at' => $request->get('start_at'),
+            'end_at' => $request->get('end_at'),
+            'contact' => $request->get('contact'),
+            'location' => $request->get('location'),
         ]);
+
         $events->category = Input::get('category');
-        $events->cover_image = $fileNameToStore;
         $events->user_id = auth()->user()->id;
         $events->save();
-        return redirect('/event')->with('success','Event successfully added');
+
+
+        // Handle File Upload
+        if ($request->hasFile('cover_image')) {
+            $files = $request->file('cover_image');
+            foreach ($files as $file){
+
+               $filenameWithExt = $file->getClientOriginalName();
+               $filename = pathinfo($filenameWithExt, PATHINFO_FILENAME);
+               $extension = $file->getClientOriginalExtension();
+               $fileSize = $file->getClientSize();
+               $fileNameToStore = $filename . '_' . time() . '.' . $extension;
+
+                $path = $file->storeAs('public/cover_images', $fileNameToStore);
+
+//                $location = ('public_path/cover_images'. $fileNameToStore);
+//                $location = public_path('cover_images/'. $fileNameToStore);
+
+//                Image::make($file)->resize(800,400)->save($path);
+
+                $upload = New Uploads;
+                $upload->image_name = $fileNameToStore;
+                $upload->image_size = $fileSize;
+                $upload->user_id = auth()->user()->id;
+                $upload->event_id = $events->id;
+                $upload->save();
+            }
+            $events->cover_image = $fileNameToStore;
+            $events->save();
+
+        }
+
+        else {
+            $fileNameToStore = 'noimage.jpg';
+            $events->cover_image = $fileNameToStore;
+            $events->save();
+        }
+        return redirect('/event')->with('success', 'Event successfully added');
     }
+
+//        $fileNameToStore = 'noimage.jpg';
+//        $events->cover_image = $fileNameToStore;
+
+
+
+//            //Get filename with the extension
+//            $filenameWithExt = $request->file('cover_image')->getClientOriginalName();
+//
+//            // Get just filename
+//            $filename = pathinfo($filenameWithExt, PATHINFO_FILENAME);
+//
+//            // Get just ext
+//            $extension = $request->file('cover_image')->getClientOriginalExtension();
+//
+//            // Filename to store
+//            $fileNameToStore = $filename . '_' . time() . '.' . $extension;
+//
+//            // Upload Image
+//            $path = $request->file('cover_image')->storeAs('public/cover_images', $fileNameToStore);
+//        }
+//        else {
+//            $fileNameToStore = 'noimage.jpg';
+//        }
+
+
+
+
+//            for ($i=0; $i < count($files); $i++) {
+//                //Get filename with the extension
+//                $filenameWithExt = $files[$i]->getClientOriginalName();
+//
+//                $filename = pathinfo($filenameWithExt, PATHINFO_FILENAME);
+//
+//                $extension = $files[$i]->getClientOriginalExtension();
+//
+//                $fileSize = $files[$i]->getClientSize();
+//
+//                $fileNameToStore = $filename . '_' . time() . '.' . $extension;
+//
+//                $path = $files[$i]->storeAs('public/cover_images', $fileNameToStore);
+//
+//                $upload = New Uploads;
+//                $upload->image_name = $filename;
+//                $upload->image_size = $fileSize;
+//                $upload->user_id = auth()->user()->id;
+//                $upload->event_id = $events->id;
+//                $upload->save();
+//            }
+
+
+
+
     /**
      * Display the specified resource.
      *
@@ -105,8 +181,17 @@ class eventsController extends Controller
      */
     public function show($id)
     {
+
+//        $event_id = auth()->user()->id;
+//
+//        $user = User::find($user_id);
+//        return view('events.dashboard')->with('events',$user->event);
+
+
         $event = Event::find($id);
-        return view('events.show')->with('events',$event);
+        $image = Uploads::find($event);
+
+        return view('events.show')->with('events',$event)->with('images',$image);
     }
 
     /**
@@ -144,22 +229,8 @@ class eventsController extends Controller
                 'end_at' => 'required',
                 'contact' => 'required',
                 'location' => 'required',
-                'cover_image' => 'image|nullable|max:1999']
+                ]
         );
-
-        // Handle File Upload
-        if($request->hasFile('cover_image')){
-            // Get filename with the extension
-            $filenameWithExt = $request->file('cover_image')->getClientOriginalName();
-            // Get just filename
-            $filename = pathinfo($filenameWithExt, PATHINFO_FILENAME);
-            // Get just ext
-            $extension = $request->file('cover_image')->getClientOriginalExtension();
-            // Filename to store
-            $fileNameToStore= $filename.'_'.time().'.'.$extension;
-            // Upload Image
-            $path = $request->file('cover_image')->storeAs('public/cover_images', $fileNameToStore);
-        }
 
         $events = Event::find($id);
         $events->event_name = $request->get('event_name');
@@ -170,15 +241,83 @@ class eventsController extends Controller
         $events->end_at = $request->get('end_at');
         $events->contact = $request->get('contact');
         $events->location = $request->get('location');
-
-        if($request->hasFile('cover_image')){
-            if ($events->cover_image != 'noimage.jpg') {
-                Storage::delete('public/cover_images/' . $events->cover_image);
-            }
-            $events->cover_image = $fileNameToStore;
-        }
         $events->save();
-        return redirect('/event')->with('success','Event successfully Edited');
+
+//        // Handle File Upload
+//        if($request->hasFile('cover_image')){
+//            // Get filename with the extension
+//            $filenameWithExt = $request->file('cover_image')->getClientOriginalName();
+//            // Get just filename
+//            $filename = pathinfo($filenameWithExt, PATHINFO_FILENAME);
+//            // Get just ext
+//            $extension = $request->file('cover_image')->getClientOriginalExtension();
+//            // Filename to store
+//            $fileNameToStore= $filename.'_'.time().'.'.$extension;
+//            // Upload Image
+//            $path = $request->file('cover_image')->storeAs('public/cover_images', $fileNameToStore);
+//        }
+
+        // Handle File Upload on update
+        if ($request->hasFile('cover_image')) {
+
+            //delete any existing images before saving new ones
+            $allUploads = Uploads::all();
+            $images = Uploads::find($id);
+            $images->delete();
+
+            //Handle the file request
+            $files = $request->file('cover_image');
+
+            foreach ($files as $file){
+
+                $filenameWithExt = $file->getClientOriginalName();
+                $filename = pathinfo($filenameWithExt, PATHINFO_FILENAME);
+                $extension = $file->getClientOriginalExtension();
+                $fileSize = $file->getClientSize();
+                $fileNameToStore = $filename . '_' . time() . '.' . $extension;
+
+                $path = $file->storeAs('public/cover_images', $fileNameToStore);
+
+                $upload = New Uploads;
+                $upload->image_name = $fileNameToStore;
+                $upload->image_size = $fileSize;
+                $upload->user_id = auth()->user()->id;
+                $upload->event_id = $events->id;
+                $upload->save();
+            }
+
+            $events->cover_image = $fileNameToStore;
+            $events->save();
+        }
+
+        else if ($events->cover_image != 'noimage.jpg') {
+            $upload = Uploads::find($id);
+            $fileNameToStore = $upload->image_name;
+            $events->cover_image = $fileNameToStore;
+            $events->save();
+        }
+        else {
+            $fileNameToStore = 'noimage.jpg';
+            $events->cover_image = $fileNameToStore;
+            $events->save();
+        }
+        return redirect('/event')->with('success','Event successfully Updated');
+
+
+//        if ($events->cover_image != 'noimage.jpg') {
+//            Storage::delete('public/cover_images/' . $upload->image_name);
+//        }
+
+
+//
+//        if($request->hasFile('cover_image')){
+//            if ($events->cover_image != 'noimage.jpg') {
+//                Storage::delete('public/cover_images/' . $events->cover_image);
+//            }
+//            $events->cover_image = $fileNameToStore;
+//        }
+//        $events->save();
+//        return redirect('/event')->with(');
     }
 
     /**
@@ -190,6 +329,7 @@ class eventsController extends Controller
     public function destroy($id)
     {
         $events = Event::find($id);
+        $uploads = Uploads::find($id);
 
         //checks for the correct user
         if(auth()->user()->id !== $events->user_id) {
@@ -198,12 +338,14 @@ class eventsController extends Controller
 
 
         if($events->cover_image != 'noimage.jpg'){
-            // Delete Image
+            // Delete the main Image
             Storage::delete('public/cover_images/'.$events->cover_image);
+
+
         }
 
-
         $events->delete();
+        $uploads->delete();
         return redirect('/event')->with('success','Event Removed');
     }
 

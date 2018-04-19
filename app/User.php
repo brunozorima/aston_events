@@ -18,6 +18,7 @@ class User extends Authenticatable
     protected $fillable = [
         'name', 'email', 'password','phone_number'
     ];
+    protected $primaryKey ='id';
 
     /**
      * The attributes that should be hidden for arrays.
@@ -29,6 +30,7 @@ class User extends Authenticatable
     ];
 
     public function event() {
+        //a user can have manny events but one event only have one user
         return $this->hasMany('App\Event');
     }
 }
