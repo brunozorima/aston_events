@@ -4,11 +4,7 @@
         <div class="row">
             <div class="col-md-8 col-md-offset-2">
                 <div class="panel panel-default">
-                    <div class="panel-heading"><h1>Welcome {{ Auth::user()->name }} <form method="POST" action="{{action('DashboardController@destroy', Auth::user()->id)}}" class="pull-right">
-                                {{csrf_field()}}
-                                <input type="hidden" name="_method" value="DELETE"/>
-                                <button type="submit" class="btn btn-danger">Close Account ?</button>
-                            </form></h1></div>
+                    <div class="panel-heading"><h1>Welcome {{ Auth::user()->name }}</h1></div>
                     <div class="panel-body">
                         <h1>My Events</h1>
                         @if (session('status'))
@@ -29,7 +25,7 @@
                                 </form>
                             @endforeach
                         @else
-                            <p>No Events Found</p>
+                            <p>No Events Found <a href="{{ url('/event/create') }}">Create One?</a> </p>
                         @endif
                     </div>
                 </div>

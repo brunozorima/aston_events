@@ -13,8 +13,11 @@ class PagesController extends Controller
 {
     public function index() {
         //Display events of the month
-        $event = Event::whereMonth('date', '=', date('m'))->paginate(10);
-        return view('pages.index')->with('events',$event);
+        $event = Event::whereMonth('date', '=', date('m'))->paginate(3);
+        $sport_events = Event::where('category','=', 'Sport')->paginate(3);
+        $popular = Event::orderBy('event_likes','desc')->paginate(3);
+        $new_events = Event::orderBy('date','asc')->paginate(3);
+        return view('pages.index')->with('events',$event)->with('sportEvents',$sport_events)->with('popularEvents',$popular)->with('newestEvents',$new_events);
     }
 
     public function about() {
@@ -37,6 +40,7 @@ class PagesController extends Controller
 
         $user_info = User::find($event);
         $user_email = $user_info[0]->email;
+
 
         return view('pages.show')->with('event',$event)->with('images',$image)->with('user_email',$user_email);
     }
@@ -95,6 +99,23 @@ class PagesController extends Controller
         return view('pages.events')->with('events', $event)->with('title',$title);
 
     }
+
+    public function most_liked_events() {
+        //display most recent event
+        $title = "Most Liked ";
+        $event = Event::orderBy('event_likes','desc')->paginate(20);
+        return view('pages.events')->with('events', $event)->with('title',$title);
+
+    }
+    public function least_liked_events() {
+        //display most recent event
+        $title = "Most Liked ";
+        $event = Event::orderBy('event_likes','asc')->paginate(20);
+        return view('pages.events')->with('events', $event)->with('title',$title);
+
+    }
+
+
     public function sort_by_name_asc() {
         //display most recent event
         $title = "";
@@ -125,5 +146,13 @@ class PagesController extends Controller
         });
 
         return view('pages.about');
+    }
+
+    public function like_event($id) {
+        $events = Event::find($id);
+        $events->event_likes = $events->event_likes + 1;
+        $events->save();
+        return redirect()->back()->with('success','Event successfully Liked');
+
     }
 }

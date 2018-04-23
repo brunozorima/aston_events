@@ -2,7 +2,7 @@
 @section('content')
         <div class="row">
             @if(count($events) > 0)
-                <h1 align="center">{{$title}} Events</h1>
+                <h1 align="center"><strong><i>{{$title}} Events...</i></strong></h1>
                 @foreach($events as $event)
                         <div class="col-md-4">
                             <div class="card">
@@ -15,6 +15,7 @@
                                 <div class="card-footer">
                                     <small>{{$event->location}} <i class="material-icons" style="font-size:15px; align-content: center ">&#xe55f;</i></small><br/>
                                     <small>Date: {{$event->date}}</small>
+                                    <small> {{$event->start_at}}</small>
                                 </div>
                             </div>
                         </div>

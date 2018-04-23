@@ -26,9 +26,12 @@ Route::get('event/music','PagesController@music_events');
 Route::get('event/other','PagesController@other_events');
 Route::get('event/search/','PagesController@search');
 Route::get('event/newest','PagesController@newest_events');
-Route::get('event/oldest','PagesController@oldest_events');
+Route::get('event/future','PagesController@oldest_events');
+Route::get('event/most/liked','PagesController@most_liked_events');
+Route::get('event/least/liked','PagesController@least_liked_events');
 Route::get('event/sort/name/asc','PagesController@sort_by_name_asc');
 Route::get('event/sort/name/desc','PagesController@sort_by_name_desc');
+Route::post('events/{id}/like','PagesController@like_event');
 
 Route::get('contact','PagesController@contact_organiser');
 Route::get('contact/{id}','PagesController@contact_organiser');

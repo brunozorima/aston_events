@@ -78,6 +78,18 @@
                         </div>
                     </div>
                     <div class="form-group">
+                        <label for="postcode" class="col-md-3 control-label">Post Code</label>
+                        <div class="col-md-9">
+                            <input type="text" class="form-control" name="postcode" placeholder="Post Code">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="County" class="col-md-3 control-label">County</label>
+                        <div class="col-md-9">
+                            <input type="text" class="form-control" name="county" placeholder="County">
+                        </div>
+                    </div>
+                    <div class="form-group">
                         <label for="images" class="col-md-3 control-label">Select Photos: </label>
                         <div class="col-md-9">
                             <input type="file" class="form-control" id="cover_image" name="cover_image[]" multiple="true" accept="image/x-png,image/gif,image/jpeg, image/jpg">

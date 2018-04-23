@@ -69,6 +69,18 @@
                             <input type="text" class="form-control" name="location" value="{{$events->location}}" placeholder="Location">
                         </div>
                     </div>
+                    <div class="form-group">
+                        <label for="postcode" class="col-md-3 control-label">Post Code</label>
+                        <div class="col-md-9">
+                            <input type="text" class="form-control" name="postcode" value="{{$events->postcode}}" placeholder="Post Code">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="County" class="col-md-3 control-label">County</label>
+                        <div class="col-md-9">
+                            <input type="text" class="form-control" name="county" value="{{$events->county}}" placeholder="County">
+                        </div>
+                    </div>
 
                     <div class="form-group">
                         <label for="location" class="col-md-3 control-label">Photos</label>

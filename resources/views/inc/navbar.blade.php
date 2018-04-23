@@ -42,9 +42,11 @@
                         </li>
                         <li><a href="{{ url('events') }}">ALL EVENTS</a></li>
                         <li><a href="/event/newest">UPCOMING EVENTS</a></li>
-                        <li><a href="/event/oldest">FUTURE EVENTS</a></li>
+                        <li><a href="/event/future">FUTURE EVENTS</a></li>
                         <li><a href="/event/sort/name/asc">SORT BY NAME (ASC)</a></li>
                         <li><a href="/event/sort/name/desc">SORT BY NAME (DESC)</a></li>
+                        <li><a href="/event/most/liked">MOST LIKED EVENTS</a></li>
+                        <li><a href="/event/least/liked">LEAST LIKED EVENTS</a></li>
                         <li><a href="/event/sport">SPORT</a></li>
                         <li><a href="/event/culture">CULTURE</a></li>
                         <li><a href="/event/music">MUSIC</a></li>

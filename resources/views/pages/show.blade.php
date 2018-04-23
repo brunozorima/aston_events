@@ -8,9 +8,8 @@
                         @foreach($images as $image)
                             <img class="card__preview mySlides w3-animate-fading" src="/storage/cover_images/{{$image->image_name}} "style="width: 100%">
                         @endforeach
-
                     @else
-                        <img class="card__preview mySlides" src="/storage/cover_images/{{$images[0]->image_name}} "style="width: 100%">
+                        <img class="card__preview mySlides" src="/storage/cover_images/{{$event->cover_image}} "style="width: 100%">
                     @endif
                 </header>
                 <div class="card__body">
@@ -21,12 +20,18 @@
                         </div>
                     </div>
                     <footer class="card__footer">
-                        <span class="card__author">By {{$event->organiser}}</span>
+                        <span class="card__author"><strong>Created By</strong> {{$event->organiser}}</span>
+                        <span class="card__author"><strong>Posted on</strong> {{$event->created_at}}</span>
                         <div class="card__meta">
                             <div class="card__meta-item">
-                                <i class="card__meta-icon card__meta-comments"></i>
-                                <span class="card__label">{{$event->id}} Likes</span>
-                                <i onclick="myFunction(this)" class="fa fa-thumbs-up"></i>
+                                @if(Auth::guest())
+                                <form method="POST" action="{{action('PagesController@like_event', $event->id)}}" role="form">
+                                    {{csrf_field()}}
+                                    <button class="btn btn-default"><i onclick="myFunction(this)" class="fa fa-thumbs-up" ></i></button> <span class="card__label">{{$event->event_likes}} Likes</span>
+                                </form>
+                                @else
+                                    <span class="card__label"><strong>{{$event->event_likes}}</strong> Likes</span>
+                                @endif
                                 <script>
                                     function myFunction(x) {
                                         x.classList.toggle("fa-thumbs-down");
@@ -35,7 +40,7 @@
                             </div>
                             <div class="card__meta-item">
                                 <i class="card__meta-icon card__meta-likes"></i>
-                                <span class="card__label">{{$event->category}}</span>
+                                <span class="card__label"><strong>Category:</strong> {{$event->category}}</span>
                             </div>
                         </div>
                     </footer>
@@ -43,17 +48,27 @@
             </article>
             <article class="card card_size-m">
                 <header class="card__header align-content-center">
-                    <h3 class="card__title label label-default">Date and Time</h3>
-                    <h4>{{$event->date}}</h4>
-                    <h4>{{$event->start_at}} - {{$event->end_at}} BST</h4>
+                    <h3 class="card__title"><i>DATE AND TIME INFORMATION</i></h3>
+                    <h4><i>Event Date: </i> {{$event->date}}</h4>
+                    <h4><i>Starts At:</i> {{$event->start_at}} </h4>
+                    <h4><i>Ends At: </i> {{$event->end_at}} BST</h4>
                 </header>
                 <div class="card__body">
                     <div class="card__content">
-                        <h3 class="card__title label label-default">Location</h3>
+                        <h3 class="card__title"><i>LOCATION INFORMATION</i></h3>
                         <div class="card__description">
-                            <h5>{{$event->location}}</h5>
-                            <p>Birmingham</p>
-                            <p>B15 7LS</p>
+                            <h4><i>{{$event->location}}</i></h4>
+                            <h4><i>{{$event->postcode}}</i></h4>
+                            <h4><i>{{$event->county}}</i></h4>
+                        </div>
+                    </div>
+                </div>
+                <div class="card__body">
+                    <div class="card__content">
+                        <h3 class="card__title"><i>EVENT INFORMATION</i></h3>
+                        <div class="card__description">
+                            <h4><i>Call us on: {{$event->contact}}</i></h4>
+                            <h4><i>Last Updated on: {{$event->updated_at}}</i></h4>
                         </div>
                     </div>
                 </div>

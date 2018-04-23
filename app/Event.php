@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Event extends Model
 {
-    protected $fillable = ['event_name','category','description','organiser','date','start_at','end_at','contact','location'];
+    protected $fillable = ['event_name','category','description','organiser','date','start_at','end_at','contact','location','postcode','county'];
 
     public $primaryKey = 'id';
 
