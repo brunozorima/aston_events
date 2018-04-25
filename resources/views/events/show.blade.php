@@ -6,7 +6,7 @@
                 <header class="card__header">
                     @if(count($images) > 1)
                         @foreach($images as $image)
-                            <img class="card__preview mySlides w3-animate-fading" src="/storage/cover_images/{{$image->image_name}}">
+                            <img class="card__preview mySlides w3-animate-fading" src="/storage/cover_images/{{$image->image_name}} "style="width: 100%">
                         @endforeach
                     @else
                         <img class="card__preview mySlides" src="/storage/cover_images/{{$events->cover_image}} "style="width: 100%">

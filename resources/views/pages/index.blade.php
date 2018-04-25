@@ -66,7 +66,7 @@
                             </a>
                             <div class="card-footer">
                                 <small>{{$event->location}}</small><br/>
-                                <small>Date: {{$event->date}}</small>
+                                <small>Date: {{$event->date}}</small>   
 
                             </div>
                         </div>

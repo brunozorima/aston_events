@@ -15,8 +15,12 @@ class Event extends Model
     }
 
     public function uploads() {
-        //a user can have manny events but one event only have one user
+        //an event might have many uploads
         return $this->hasMany('App\Uploads');
+    }
+
+    public function likes() {
+        return $this->hasMany('App\Likes_table');
     }
 }
 

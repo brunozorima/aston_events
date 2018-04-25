@@ -1,5 +1,5 @@
 @extends('layouts.app')
 @section('content')
-    <h1>About Us</h1>
-    <p>What happens if an event expires</p>
+    <h1 align="center"><strong><i>About Us</i></strong></h1>
+    <p></p>
 @endsection

@@ -8,7 +8,9 @@ use App\Event;
 use App\Uploads;
 use DB;
 use Storage;
-
+use Illuminate\Support\Facades\Session;
+use App\Likes_table;
+use Like;
 class PagesController extends Controller
 {
     public function index() {
@@ -36,13 +38,22 @@ class PagesController extends Controller
 
     public function show($id) {
         $event = Event::find($id);
-        $image = Uploads::find($event);
+        $original_id =  $event->id;
+
+        $images =  Uploads::all();
+        $my_images = array();
+        foreach ($images as $image) {
+
+            if($image->event_id === $original_id) {
+                $my_images [] = $image;
+            }
+
+        }
 
         $user_info = User::find($event);
         $user_email = $user_info[0]->email;
 
-
-        return view('pages.show')->with('event',$event)->with('images',$image)->with('user_email',$user_email);
+        return view('pages.show')->with('event',$event)->with('images',$my_images)->with('user_email',$user_email);
     }
 
     public function sport_events() {
@@ -149,10 +160,30 @@ class PagesController extends Controller
     }
 
     public function like_event($id) {
-        $events = Event::find($id);
-        $events->event_likes = $events->event_likes + 1;
-        $events->save();
-        return redirect()->back()->with('success','Event successfully Liked');
 
+        $session_id = Session::getId();
+
+        if(!$this->Liked_event($id)) {
+            $like_event = new Likes_table;
+            $like_event->event_id = $id;
+            $like_event->session_id = $session_id;
+            $like_event->save();
+
+            Event::find($id)->increment('event_likes');
+            return redirect()->back()->with('success','Event successfully Liked');
+        }
+        else {
+            $like_query =  Likes_table::Where('event_id',$id)->Where('session_id',$session_id)->delete();
+            Event::find($id)->decrement('event_likes');
+        }
+
+        return redirect()->back()->with('success','Event successfully disliked');
+    }
+
+    public function Liked_event($event_id) {
+        $session = Session::getId();
+        $like_query = Likes_table::Where('event_id',$event_id)->Where('session_id',$session)->get();
+
+        return !($like_query->isEmpty());
     }
 }

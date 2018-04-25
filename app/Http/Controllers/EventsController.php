@@ -131,9 +131,19 @@ class eventsController extends Controller
     {
 
         $event = Event::find($id);
-        $image = Uploads::find($event);
+        $original_id =  $event->id;
 
-        return view('events.show')->with('events',$event)->with('images',$image);
+        $images =  Uploads::all();
+        $my_images = array();
+        foreach ($images as $image) {
+
+            if($image->event_id === $original_id) {
+                $my_images [] = $image;
+            }
+
+        }
+
+        return view('events.show')->with('events',$event)->with('images',$my_images);
     }
 
     /**
@@ -192,14 +202,27 @@ class eventsController extends Controller
         // Handle File Upload on update
         if ($request->hasFile('cover_image')) {
 
+
             //delete any existing images before saving new ones
-            $allUploads = Uploads::all();
-            $images = Uploads::find($id);
-            $images->delete();
+            $original_id =  $events->id;
+            $images =  Uploads::all();
+            $id_to_delete="";
+            if(count($images) > 0) {
+                for($i=0; $i < sizeof($images); $i++) {
+                    if($images[$i] === $original_id) {
+                        $id_to_delete=$original_id;
+                    }
+                }
+                if(!isEmpty($id_to_delete)) {
+                    $images_to_delete = Uploads::find($id_to_delete);
+                    $images_to_delete->delete();
+                }
+            }
+
+
 
             //Handle the file request
             $files = $request->file('cover_image');
-
             foreach ($files as $file){
 
                 $filenameWithExt = $file->getClientOriginalName();
@@ -223,10 +246,19 @@ class eventsController extends Controller
         }
 
         else if ($events->cover_image != 'noimage.jpg') {
-            $upload = Uploads::find($id);
-            $fileNameToStore = $upload->image_name;
+            $original_id =  $events->id;
+            $images =  Uploads::all();
+            foreach ($images as $image) {
+                if($image->event_id === $original_id) {
+                    $images_to_save = Uploads::find($image->event_id);
+                    $fileNameToStore = $images_to_save->image_name;
+                }
+
+            }
             $events->cover_image = $fileNameToStore;
             $events->save();
+
+
         }
         else {
             $fileNameToStore = 'noimage.jpg';
@@ -235,6 +267,7 @@ class eventsController extends Controller
         }
         return redirect('/event')->with('success','Event successfully Updated');
     }
+
 
     /**
      * Remove the specified resource from storage.
@@ -245,24 +278,27 @@ class eventsController extends Controller
     public function destroy($id)
     {
         $events = Event::find($id);
-        $uploads = Uploads::find($id);
-        $allUploads = Uploads::whereNotnull('event_id');
 
         //checks for the correct user
         if(auth()->user()->id !== $events->user_id) {
             return redirect('/event')->with('error','Unauthorized Page');
         }
 
-
         if($events->cover_image != 'noimage.jpg'){
             // Delete the main Image
             Storage::delete('public/cover_images/'.$events->cover_image);
-
-
+            //delete any existing images before saving new ones
+            $original_id =  $events->id;
+            $images =  Uploads::all();
+            foreach ($images as $image) {
+                if($image->event_id === $original_id) {
+                    $images_to_delete = Uploads::find($image->event_id);
+                }
+            }
+            $images_to_delete->delete();
         }
 
         $events->delete();
-        $uploads->delete();
         return redirect('/event')->with('success','Event Removed');
     }
 }
